@@ -14,7 +14,7 @@ services:
     build: .
     environment:
       - DJANGO_SETTINGS_MODULE=locality_finder.settings.docker_settings
-    command: python manage.py runserver 0.0.0.0:8080
+    command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; python manage.py runserver 0.0.0.0:8080'
     volumes:
       - .:/code
     ports:
