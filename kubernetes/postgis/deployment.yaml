@@ -1,0 +1,29 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: postgis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgis-container
+  template:
+    metadata:
+      labels:
+        app: postgis-container
+        tier: backend
+    spec:
+      containers:
+        - name: postgis-container
+          image: kartoza/postgis:latest
+          env:
+            - name: POSTGRES_USER
+              value: docker
+            - name: POSTGRES_PASSWORD
+              value: docker
+            - name: POSTGRES_DB
+              value: docker
+            - name: ALLOW_IP_RANGE
+              value: '10.0.0.0/8'
+          ports:
+            - containerPort: 5432

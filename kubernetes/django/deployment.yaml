@@ -1,0 +1,30 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: django
+  labels:
+    app: django
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      pod: django
+  template:
+    metadata:
+      labels:
+        pod: django
+    spec:
+      containers:
+        - name: django
+          image: wischlabs/locality_finder:latest
+          ports:
+            - containerPort: 8000
+          env:
+            - name: POSTGRES_USER
+              value: docker
+            - name: POSTGRES_PASSWORD
+              value: docker
+            - name: POSTGRES_DBNAME
+              value: docker
+            - name: DJANGO_SETTINGS_MODULE
+              value: settings.k8s_settings
