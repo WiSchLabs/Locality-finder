@@ -13,7 +13,7 @@ services:
   web:
     build: .
     environment:
-      - DJANGO_SETTINGS_MODULE=locality_finder.settings.docker_settings
+      - DJANGO_SETTINGS_MODULE=settings.docker_settings
     command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; python manage.py runserver 0.0.0.0:8080'
     volumes:
       - .:/code
