@@ -13,3 +13,5 @@ DATABASES = {
         'PORT': 5432,
     }
 }
+
+ALLOWED_HOSTS = ["locality-finder.sh4ke.rocks", "localhost", "127.0.0.1"]
