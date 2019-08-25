@@ -1,0 +1,19 @@
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: locality-finder-sh4ke-rocks
+  namespace: django
+spec:
+  secretName: django-tls
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: locality-finder.sh4ke.rocks
+  dnsNames:
+  - locality-finder.sh4ke.rocks
+  acme:
+    config:
+    - http01:
+        ingressClass: nginx
+      domains:
+      - locality-finder.sh4ke.rocks
