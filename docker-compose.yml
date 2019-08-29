@@ -10,8 +10,9 @@ services:
       - POSTGRES_DBNAME=docker
     volumes:
       - postgres-data:/var/lib/postgresql/data
+    networks:
+      - db_network
   web:
-
     build:
       context: .
       dockerfile: Dockerfile_Compose
@@ -20,10 +21,27 @@ services:
     command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; gunicorn locality_finder.wsgi --bind :8080'
     volumes:
       - .:/code
-    ports:
-      - "8080:8080"
+    networks:
+      - db_network
+      - nginx_network
     depends_on:
       - db
+  nginx:
+    image: nginx:latest
+    ports:
+      - 8080:80
+    volumes:
+      - ./config/nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - web
+    networks:
+      - nginx_network
+
+networks:
+  nginx_network:
+    driver: bridge
+  db_network:
+    driver: bridge
 
 volumes:
   postgres-data:
