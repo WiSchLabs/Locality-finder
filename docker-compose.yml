@@ -21,6 +21,8 @@ services:
     command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; gunicorn locality_finder.wsgi --bind :8080'
     volumes:
       - .:/code
+      - static_volume:/code/static
+      - media_volume:/code/media
     networks:
       - db_network
       - nginx_network
@@ -32,6 +34,8 @@ services:
       - 8080:80
     volumes:
       - ./config/nginx/conf.d:/etc/nginx/conf.d
+      - static_volume:/code/static
+      - media_volume:/code/media
     depends_on:
       - web
     networks:
@@ -45,3 +49,5 @@ networks:
 
 volumes:
   postgres-data:
+  static_volume:
+  media_volume:
