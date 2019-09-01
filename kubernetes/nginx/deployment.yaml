@@ -1,0 +1,21 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      pod: nginx
+  template:
+    metadata:
+      labels:
+        pod: nginx
+    spec:
+      containers:
+        - name: nginx
+          image: wischlabs/locality_finder:nginx_latest
+          ports:
+            - containerPort: 80
