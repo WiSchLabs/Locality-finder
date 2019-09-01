@@ -1,0 +1,61 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: django-migrations
+spec:
+  template:
+    spec:
+      containers:
+        - name: django
+          image: wischlabs/locality_finder:latest
+          command: ['python', 'manage.py', 'migrate']
+          env:
+            - name: POSTGRES_USER
+              value: docker
+            - name: POSTGRES_PASSWORD
+              value: docker
+            - name: POSTGRES_HOST
+              value: postgis-service
+            - name: DJANGO_SETTINGS_MODULE
+              value: settings.k8s_settings
+      restartPolicy: Never
+  backoffLimit: 5
+
+---
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: django-collectstatic
+spec:
+  template:
+    spec:
+      containers:
+        - name: django
+          image: wischlabs/locality_finder:latest
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: nginx-static-pv
+              mountPath: /code/static
+            - name: nginx-media-pv
+              mountPath: /code/media
+          command: ['python', 'manage.py', 'collectstatic', '--no-input']
+          env:
+            - name: POSTGRES_USER
+              value: docker
+            - name: POSTGRES_PASSWORD
+              value: docker
+            - name: POSTGRES_HOST
+              value: postgis-service
+            - name: DJANGO_SETTINGS_MODULE
+              value: settings.k8s_settings
+      volumes:
+        - name: nginx-static-pv
+          persistentVolumeClaim:
+            claimName: nginx-static-pvc
+        - name: nginx-media-pv
+          persistentVolumeClaim:
+            claimName: nginx-media-pvc
+
+      restartPolicy: Never
+  backoffLimit: 5
