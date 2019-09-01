@@ -1,5 +1,7 @@
 FROM python:3
 
+EXPOSE 8080
+
 RUN apt-get update && \
     apt-get install -y gdal-bin libgdal-dev python3-gdal && \
     rm -rf /var/lib/apt/lists/*

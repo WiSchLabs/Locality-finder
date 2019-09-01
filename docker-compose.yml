@@ -33,7 +33,7 @@ services:
     ports:
       - 8080:80
     volumes:
-      - ./config/nginx/conf.d/compose_local.conf:/etc/nginx/conf.d/local.conf
+      - ./config/nginx/conf.d/compose_local.conf:/etc/nginx/conf.d/default.conf
       - static_volume:/code/static
       - media_volume:/code/media
     depends_on:
