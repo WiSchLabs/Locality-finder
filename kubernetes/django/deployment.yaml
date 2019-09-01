@@ -17,6 +17,12 @@ spec:
       containers:
         - name: django
           image: wischlabs/locality_finder:latest
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: nginx-static-pv
+              mountPath: /code/static
+            - name: nginx-media-pv
+              mountPath: /code/media
           ports:
             - containerPort: 8000
           env:
@@ -28,3 +34,11 @@ spec:
               value: docker
             - name: DJANGO_SETTINGS_MODULE
               value: settings.k8s_settings
+
+      volumes:
+        - name: nginx-static-pv
+          persistentVolumeClaim:
+            claimName: nginx-static-pvc
+        - name: nginx-media-pv
+          persistentVolumeClaim:
+            claimName: nginx-media-pvc
