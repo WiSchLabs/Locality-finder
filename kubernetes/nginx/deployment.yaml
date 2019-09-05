@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: wischlabs/locality_finder:nginx_latest
+          image: nginx:1.17
           imagePullPolicy: Always
           ports:
             - containerPort: 80
@@ -25,6 +25,8 @@ spec:
               mountPath: /code/static
             - name: nginx-media-pv
               mountPath: /code/media
+            - name: nginx-config-volume
+              mountPath: /etc/nginx/conf.d
 
       volumes:
         - name: nginx-static-pv
@@ -33,3 +35,6 @@ spec:
         - name: nginx-media-pv
           persistentVolumeClaim:
             claimName: nginx-media-pvc
+        - name: nginx-config-volume
+          configMap:
+            name: nginx-configmap
