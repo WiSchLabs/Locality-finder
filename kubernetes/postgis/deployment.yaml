@@ -29,7 +29,7 @@ spec:
             - containerPort: 5432
           volumeMounts:
             - name: postgres-pv
-              mountPath: /var/lib/postgresql/data
+              mountPath: /var/lib/postgresql/11/main
           readinessProbe:
             exec:
               command:
