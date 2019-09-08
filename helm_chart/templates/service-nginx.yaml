@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "helm_chart.fullname" . }}-nginx-service
+  labels:
+{{ include "helm_chart.labels" . | indent 4 }}
+spec:
+  type: {{ .Values.nginx.service.type }}
+  ports:
+  - protocol: TCP
+    port: {{ .Values.nginx.service.port }}
+    targetPort: 80
+  selector:
+    pod: nginx
+    app.kubernetes.io/name: {{ include "helm_chart.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}

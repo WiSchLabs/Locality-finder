@@ -1,0 +1,15 @@
+{{- $fullName := include "helm_chart.fullname" . -}}
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ $fullName }}-postgres-pvc
+  labels:
+    type: local
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 6Gi
+  volumeName: {{ $fullName }}-postgres-pv
+  storageClassName: standard

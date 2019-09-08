@@ -1,0 +1,38 @@
+{{- $fullName := include "helm_chart.fullname" . -}}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ $fullName }}-nginx-static-pv
+  labels:
+    type: local
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: /mnt/NAS/k8s_storage/volumes/{{ $fullName }}-nginx-static-pv
+    type: DirectoryOrCreate
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: standard
+  volumeMode: Filesystem
+
+---
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ $fullName }}-nginx-media-pv
+  labels:
+    type: local
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: /mnt/NAS/k8s_storage/volumes/{{ $fullName }}-nginx-media-pv
+    type: DirectoryOrCreate
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: standard
+  volumeMode: Filesystem

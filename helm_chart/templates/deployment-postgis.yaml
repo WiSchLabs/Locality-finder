@@ -1,0 +1,63 @@
+{{- $fullName := include "helm_chart.fullname" . -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $fullName }}-postgis
+  labels:
+{{ include "helm_chart.labels" . | indent 4 }}
+spec:
+  replicas: {{ .Values.postgis.replicaCount }}
+  selector:
+    matchLabels:
+      app: postgis
+      app.kubernetes.io/name: {{ include "helm_chart.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: postgis
+        app.kubernetes.io/name: {{ include "helm_chart.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}-postgis
+          image: {{ .Values.postgis.image.repository }}:{{ .Values.postgis.image.tag }}
+          env:
+            - name: POSTGRES_USER
+              value: {{ .Values.postgis.db.user }}
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "helm_chart.fullname" . }}-secret
+                  key: postgis-password
+            - name: POSTGRES_DBNAME
+              value: {{ .Values.postgis.db.name }}
+            - name: ALLOW_IP_RANGE
+              value: '10.0.0.0/8'
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - name: {{ $fullName }}-postgres-pv
+              mountPath: /var/lib/postgresql/11/main
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - su - postgres -c "psql -c 'select 1'"
+          livenessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - su - postgres -c "psql -c 'select 1'"
+            failureThreshold: 3
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+
+      volumes:
+        - name: {{ $fullName }}-postgres-pv
+          persistentVolumeClaim:
+            claimName: {{ $fullName }}-postgres-pvc

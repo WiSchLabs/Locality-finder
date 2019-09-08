@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "helm_chart.fullname" . }}-django-service
+  labels:
+{{ include "helm_chart.labels" . | indent 4 }}
+spec:
+  type: {{ .Values.django.service.type }}
+  ports:
+  - protocol: TCP
+    port: {{ .Values.django.service.port }}
+    targetPort: 8000
+  selector:
+    pod: django
+    app.kubernetes.io/name: {{ include "helm_chart.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}

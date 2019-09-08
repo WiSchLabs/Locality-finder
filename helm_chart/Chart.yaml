@@ -1,0 +1,14 @@
+apiVersion: v1
+name: locality-finder
+description: A Django project for finding local events
+version: 0.1.0
+keywords:
+  - django
+  - kubernetes
+  - helm
+home: https://locality-finder.sh4ke.rocks
+sources:
+  - https://github.com/WiSchLabs/Locality-finder
+maintainers:
+  - name: Sh4kE
+    email: 948604+Sh4kE@users.noreply.github.com

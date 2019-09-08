@@ -1,0 +1,64 @@
+{{- $fullName := include "helm_chart.fullname" . -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $fullName }}-django
+  labels:
+    app: django
+    app.kubernetes.io/name: {{ $fullName }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.django.replicaCount }}
+  selector:
+    matchLabels:
+      pod: django
+      app.kubernetes.io/name: {{ include "helm_chart.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        pod: django
+        app.kubernetes.io/name: {{ include "helm_chart.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}-django
+          image: "{{ .Values.django.image.repository }}:{{ .Values.django.image.tag }}"
+          imagePullPolicy: {{ .Values.django.image.pullPolicy }}
+          volumeMounts:
+            - name: {{ $fullName }}-nginx-static-pv
+              mountPath: /code/static
+            - name: {{ $fullName }}-nginx-media-pv
+              mountPath: /code/media
+          ports:
+            - name: gunicorn
+              containerPort: 8000
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: gunicorn
+            readinessProbe:
+              httpGet:
+                path: /
+                port: gunicorn
+          env:
+            - name: POSTGRES_USER
+              value: {{ .Values.postgis.db.user }}
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "helm_chart.fullname" . }}-secret
+                  key: postgis-password
+            - name: POSTGRES_DBNAME
+              value: {{ .Values.postgis.db.name }}
+            - name: DJANGO_SETTINGS_MODULE
+              value: settings.k8s_settings
+
+      volumes:
+        - name: {{ $fullName }}-nginx-static-pv
+          persistentVolumeClaim:
+            claimName: {{ $fullName }}-nginx-static-pvc
+        - name: {{ $fullName }}-nginx-media-pv
+          persistentVolumeClaim:
+            claimName: {{ $fullName }}-nginx-media-pvc
