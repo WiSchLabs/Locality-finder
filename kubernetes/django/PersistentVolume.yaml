@@ -1,5 +1,5 @@
-kind: PersistentVolume
 apiVersion: v1
+kind: PersistentVolume
 metadata:
   name: nginx-static-pv
   labels:
@@ -18,8 +18,8 @@ spec:
 
 ---
 
-kind: PersistentVolume
 apiVersion: v1
+kind: PersistentVolume
 metadata:
   name: nginx-media-pv
   labels:
