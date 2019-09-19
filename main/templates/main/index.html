@@ -1,0 +1,17 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <h1>Test</h1>
+
+    <div class="row">
+        {% for f in foo %}
+            <b>{{f}}</b>
+            <br>
+        {% endfor %}
+    </div>
+    <br>
+    <img class="materialboxed" width="100%" src="{% static 'main/img/flight.jpg' %}">
+    <br>
+{% endblock %}
