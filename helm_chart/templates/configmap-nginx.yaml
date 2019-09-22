@@ -7,7 +7,7 @@ data:
   # When the config map is mounted as a volume, these will be created as files.
   default.conf: |
     upstream gunicorn {
-        server {{ include "helm_chart.fullname" . }}-django-service:80;
+        server {{ $fullName }}-django-service:80;
     }
 
     server {

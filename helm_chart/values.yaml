@@ -37,7 +37,7 @@ postgis:
     port: 5432
 
   db:
-    Name: docker
+    name: docker
     user: docker
     # password: docker
 

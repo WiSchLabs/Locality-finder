@@ -1,0 +1,31 @@
+{{- $fullName := include "helm_chart.fullname" . -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $fullName }}-django-configmap
+data:
+  __init__.py: |
+    pass
+  prod.py: |
+    import os
+
+    from socket import gethostname, gethostbyname
+    from ..docker_settings import *
+
+
+    SECRET_KEY = os.environ.get('APP_SECRET_KEY', 'unsafe-secret-key')
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.contrib.gis.db.backends.postgis',
+            'NAME': '{{ .Values.postgis.db.name }}',
+            'USER': '{{ .Values.postgis.db.user }}',
+            'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 'unsafe-postgress-password'),
+            'HOST': '{{ $fullName }}-postgis-service',
+            'PORT': 5432,
+        }
+    }
+
+    ALLOWED_HOSTS = [gethostname(), gethostbyname(gethostname()), {{- range $i, $host := .Values.ingress.hosts }}{{if $i}},{{end}}"{{ $host.host }}"{{- end }}, "localhost", "127.0.0.1"]
+
+    DEBUG = False

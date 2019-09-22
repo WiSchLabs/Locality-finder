@@ -38,6 +38,8 @@ Common labels
 app.kubernetes.io/name: {{ include "helm_chart.name" . }}
 helm.sh/chart: {{ include "helm_chart.chart" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
+generator: helm
+date: {{ now | htmlDate }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}

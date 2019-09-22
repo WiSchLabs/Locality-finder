@@ -9,13 +9,13 @@ spec:
   replicas: {{ .Values.postgis.replicaCount }}
   selector:
     matchLabels:
-      app: postgis
+      pod: postgis
       app.kubernetes.io/name: {{ include "helm_chart.name" . }}
       app.kubernetes.io/instance: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: postgis
+        pod: postgis
         app.kubernetes.io/name: {{ include "helm_chart.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:

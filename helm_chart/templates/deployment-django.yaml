@@ -30,6 +30,8 @@ spec:
               mountPath: /code/static
             - name: {{ $fullName }}-nginx-media-pv
               mountPath: /code/media
+            - name: {{ $fullName }}-django-config-volume
+              mountPath: /code/settings/helm_settings/
           ports:
             - name: gunicorn
               containerPort: 8000
@@ -52,8 +54,13 @@ spec:
                   key: postgis-password
             - name: POSTGRES_DBNAME
               value: {{ .Values.postgis.db.name }}
+            - name: APP_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "helm_chart.fullname" . }}-secret
+                  key: django-secret-key
             - name: DJANGO_SETTINGS_MODULE
-              value: settings.k8s_settings
+              value: settings.helm_settings.prod
 
       volumes:
         - name: {{ $fullName }}-nginx-static-pv
@@ -62,3 +69,6 @@ spec:
         - name: {{ $fullName }}-nginx-media-pv
           persistentVolumeClaim:
             claimName: {{ $fullName }}-nginx-media-pvc
+        - name: {{ $fullName }}-django-config-volume
+          configMap:
+            name: {{ $fullName }}-django-configmap
