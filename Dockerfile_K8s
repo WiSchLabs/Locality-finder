@@ -1,5 +1,8 @@
 FROM python:3
 
+ARG VCS_REF
+ARG BUILD_DATE
+
 RUN apt-get update && \
     apt-get install -y gdal-bin libgdal-dev python3-gdal && \
     rm -rf /var/lib/apt/lists/*
@@ -16,5 +19,12 @@ COPY docker_requirements.txt /code/
 RUN pip install -r docker_requirements.txt
 
 COPY . /code/
+
+LABEL org.label-schema.vcs-ref=$VCS_REF \
+      org.label-schema.vcs-url="https://github.com/WiSchLabs/Locality-finder" \
+      org.label-schema.build-date=$BUILD_DATE \
+      org.label-schema.name="Locality Finder" \
+      org.label-schema.vendor="WischLabs" \
+      org.label-schema.schema-version="1.0"
 
 CMD ["gunicorn", "locality_finder.wsgi", "--bind", ":8000"]
