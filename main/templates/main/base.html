@@ -16,7 +16,7 @@
 
     <nav>
         <div class="nav-wrapper teal">
-            <a href="#" class="brand-logo"><i class="material-icons" style="margin-left:15px">home</i></a>
+            <a href="{% url 'main:index' %}" class="brand-logo"><i class="material-icons" style="margin-left:15px">home</i></a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 {% include 'main/includes/navbaritems.html' %}
             </ul>
