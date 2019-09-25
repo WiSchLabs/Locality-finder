@@ -2,6 +2,8 @@
 <head>
     {% load static %}
 
+    <title>Locality Finder</title>
+
     <link rel="stylesheet" href="{% static 'main/css/materialize.css' %}">
     <link rel="stylesheet" href="{% static 'main/css/material_icons.css' %}" >
 
@@ -13,6 +15,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body>
+
+    <script type="text/javascript" src="{% static 'main/js/materialize.js' %}"></script>
+    <script type="text/javascript" src="{% static 'main/js/main.js' %}"></script>
 
     <nav>
         <div class="nav-wrapper teal">
@@ -38,7 +43,6 @@
         {% endblock %}
     </div>
 
-    <script type="text/javascript" src="{% static 'main/js/materialize.js' %}"></script>
     <script type="text/javascript" src="{% static 'main/js/main.js' %}"></script>
 </body>
 {% include 'main/includes/footer.html' %}
