@@ -1,3 +1,4 @@
+    <li><a href="{% url 'main:geo' %}" >GeoKarte</a></li>
 {% if user.is_authenticated %}
     <li><a href="{% url 'profile' username=user.username %}" >{{user.username|title}}</a></li>
     <li><a href="{% url 'logout' %}" >logout</a></li>

@@ -1,0 +1,27 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+{% load leaflet_tags %}
+
+{% block custom_includes %}
+    {% leaflet_js %}
+    {% leaflet_css %}
+    <link rel="stylesheet" href="{% static 'main/css/leaflet.css' %}">
+{% endblock %}
+
+{% block content %}
+    <h1>Some random place</h1>
+
+    <div class="row">
+        {% leaflet_map "main" callback="main_map_init" %}
+    </div>
+
+    <br>
+
+    <script type="text/javascript">
+        function main_map_init (map, options) {
+            // Use Leaflet API here
+            L.marker([52.525649, 13.480383]).addTo(map);
+        }
+    </script>
+{% endblock %}
