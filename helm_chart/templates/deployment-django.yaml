@@ -70,10 +70,10 @@ spec:
                   name: {{ template "helm_chart.fullname" . }}-secret
                   key: email-user
             - name: EMAIL_PASSWORD
-                valueFrom:
-                  secretKeyRef:
-                    name: {{ template "helm_chart.fullname" . }}-secret
-                    key: email-password
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "helm_chart.fullname" . }}-secret
+                  key: email-password
             - name: DJANGO_SETTINGS_MODULE
               value: settings.helm_settings.prod
 
