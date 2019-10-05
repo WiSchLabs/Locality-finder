@@ -1,0 +1,8 @@
+Dear {{user}}!
+
+To activate your account please click on the following link:
+{{ scheme }}://{{ site.domain }}/accounts/activate/{{activation_key}}/
+
+This link will be available for {{ expiration_days }} days.
+
+If you haven't registered or you think this mail is spam, simply ignore this mail.

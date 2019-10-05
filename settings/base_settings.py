@@ -118,5 +118,18 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
-
 STATIC_URL = '/static/'
+
+
+# django-registration settings
+ACCOUNT_ACTIVATION_DAYS = 1
+
+
+# EMail settings
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # send mails to console for development
+DEFAULT_FROM_EMAIL = "noreply@sh4ke.rocks"
+
+
+# Redictions
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/accounts/logged-out/'

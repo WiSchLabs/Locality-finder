@@ -1,8 +1,8 @@
 {% if user.is_authenticated %}
-    <li><a href="{% url 'main:profile' %}" >{{user.username|title}}</a></li>
-    <li><a href="{% url 'main:logout' %}" >logout</a></li>
+    <li><a href="{% url 'profile' username=user.username %}" >{{user.username|title}}</a></li>
+    <li><a href="{% url 'logout' %}" >logout</a></li>
 {% else %}
-    <li><a href="{% url 'main:login' %}" >login</a></li>
-    <li><a href="{% url 'main:register' %}" >register</a></li>
+    <li><a href="{% url 'login' %}" >login</a></li>
+    <li><a href="{% url 'django_registration_register' %}" >register</a></li>
 {% endif %}
     <li><a href="#" data-target="slide-out" class="sidenav-trigger show-on-large"><i class="material-icons">menu</i></a></li>

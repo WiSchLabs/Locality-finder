@@ -1,0 +1,12 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <h1>{{ user.username }}</h1>
+
+    <div class="row">
+        Yes, this is you!
+        {{ user }}
+    </div>
+{% endblock %}
