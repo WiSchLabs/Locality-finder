@@ -145,6 +145,8 @@ dmypy.json
 .idea/**/uiDesigner.xml
 .idea/**/dbnavigator.xml
 
+.idea/markdown-navigator*
+
 # Gradle
 .idea/**/gradle.xml
 .idea/**/libraries
