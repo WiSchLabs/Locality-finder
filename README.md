@@ -26,7 +26,7 @@ Simply copy the `helm_chart/prod_values.example.yaml` to `helm_chart/prod_values
 
 Afterwards you can start your new Helm release like so:
 ```
-helm install --namespace <your_chosen_namespace> helm_chart
+helm install -f helm_chart/prod_values.yaml --namespace <a_new_namespace> helm_chart
 ```
 
 There are a few Requirements, though.
