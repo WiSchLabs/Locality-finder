@@ -1,0 +1,19 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block custom_includes %}
+    <script type="text/javascript" src="{% static 'main/js/OpenLayers.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+    <h1>Borders</h1>
+
+    <div class="collection">
+        {% for border in world_borders %}
+            <a class="collection-item" href="{% url 'main:worldborder_detail' worldborder_slug=border.worldborder_slug %}" >{{ border }}</a>
+        {% endfor %}
+    </div>
+
+    <br>
+{% endblock %}

@@ -28,5 +28,5 @@ urlpatterns = [
     url(r'^accounts/', include('django.contrib.auth.urls')),
 
     url(r'^accounts/logged-out/', TemplateView.as_view(template_name='main/logged_out.html'), name='logged_out'),
-    url(r'^accounts/profile/(?P<username>[a-zA-Z0-9]+)$', views.get_user_profile, name='profile'),
+    url(r'^accounts/profile/(?P<username>[a-zA-Z0-9]+)/$', views.get_user_profile, name='profile'),
 ]

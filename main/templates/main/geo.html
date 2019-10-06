@@ -7,10 +7,11 @@
     {% leaflet_js %}
     {% leaflet_css %}
     <link rel="stylesheet" href="{% static 'main/css/leaflet.css' %}">
+    <script type="text/javascript" src="{% static 'main/js/jquery-3.4.1.min.js' %}"></script>
 {% endblock %}
 
 {% block content %}
-    <h1>Some random place</h1>
+    <h1>Worldborders</h1>
 
     <div class="row">
         {% leaflet_map "main" callback="main_map_init" %}
@@ -19,9 +20,14 @@
     <br>
 
     <script type="text/javascript">
+        var layer = L.geoJson();
+
         function main_map_init (map, options) {
-            // Use Leaflet API here
-            L.marker([52.525649, 13.480383]).addTo(map);
+            map.addLayer(layer);
         }
+
+        $.getJSON("{% url 'main:worldborder_list_json' %}", function (data) {
+            layer.addData(data);
+        });
     </script>
 {% endblock %}

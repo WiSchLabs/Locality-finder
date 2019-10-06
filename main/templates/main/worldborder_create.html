@@ -1,0 +1,23 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block custom_includes %}
+    <script type="text/javascript" src="{% static 'main/js/OpenLayers.js' %}"></script>
+    {{ form.media }}
+{% endblock %}
+
+{% block content %}
+    <h1>Create a new Border</h1>
+
+    <form enctype="multipart/form-data" method="POST" id="create_border_form" action="">
+        {% csrf_token %}
+            {{ form.as_p }}
+
+        <br>
+
+        <button class="btn" type="submit" id="create_border_submit_btn">save</button>
+    </form>
+
+    <br>
+{% endblock %}
