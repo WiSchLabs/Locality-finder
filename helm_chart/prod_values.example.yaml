@@ -1,0 +1,12 @@
+postgis:
+  db:
+    password: some_random_password
+
+django:
+    secret_key: a_64_byte_secret_key
+
+    mail:
+      host: your_mail_relay_host
+      user: your_mailserver_user
+      password: your_mailserver_password
+
