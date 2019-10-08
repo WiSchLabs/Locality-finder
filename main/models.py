@@ -1,4 +1,6 @@
 from django.contrib.gis.db import models
+from django.utils.datetime_safe import datetime
+from django.utils.text import slugify
 
 
 class WorldBorder(models.Model):
@@ -19,6 +21,11 @@ class WorldBorder(models.Model):
     # GeoDjango-specific: a geometry field (MultiPolygonField)
     mpoly = models.MultiPolygonField()
 
-    # Returns the string representation of the model.
+    worldborder_slug = models.SlugField(blank=True)
+
+    def save(self, *args, **kwargs):
+        self.worldborder_slug = slugify(self.name)
+        super(WorldBorder, self).save(*args, **kwargs)
+
     def __str__(self):
         return self.name
