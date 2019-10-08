@@ -1,0 +1,18 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block custom_includes %}
+    <script type="text/javascript" src="{% static 'main/js/OpenLayers.js' %}"></script>
+    {{ form.media }}
+{% endblock %}
+
+{% block content %}
+    <h1>World Border</h1>
+
+    <div class="row">
+        {{ world_border.mpoly }}
+    </div>
+
+    <br>
+{% endblock %}

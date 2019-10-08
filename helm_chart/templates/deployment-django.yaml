@@ -59,6 +59,21 @@ spec:
                 secretKeyRef:
                   name: {{ template "helm_chart.fullname" . }}-secret
                   key: django-secret-key
+            - name: EMAIL_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "helm_chart.fullname" . }}-secret
+                  key: email-host
+            - name: EMAIL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "helm_chart.fullname" . }}-secret
+                  key: email-user
+            - name: EMAIL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "helm_chart.fullname" . }}-secret
+                  key: email-password
             - name: DJANGO_SETTINGS_MODULE
               value: settings.helm_settings.prod
 

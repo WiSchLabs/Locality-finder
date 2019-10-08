@@ -1,0 +1,33 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+{% load leaflet_tags %}
+
+{% block custom_includes %}
+    {% leaflet_js %}
+    {% leaflet_css %}
+    <link rel="stylesheet" href="{% static 'main/css/leaflet.css' %}">
+    <script type="text/javascript" src="{% static 'main/js/jquery-3.4.1.min.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+    <h1>Worldborders</h1>
+
+    <div class="row">
+        {% leaflet_map "main" callback="main_map_init" %}
+    </div>
+
+    <br>
+
+    <script type="text/javascript">
+        var layer = L.geoJson();
+
+        function main_map_init (map, options) {
+            map.addLayer(layer);
+        }
+
+        $.getJSON("{% url 'main:worldborder_list_json' %}", function (data) {
+            layer.addData(data);
+        });
+    </script>
+{% endblock %}

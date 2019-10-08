@@ -1,74 +1,38 @@
-from django.contrib import messages
-from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
+from django.shortcuts import render, get_object_or_404
+from django.urls import reverse_lazy
+from django.views.generic import ListView, CreateView, DetailView
+
+from main.forms import WorldBorderCreateForm
+from main.models import WorldBorder
 
 
 def index(request):
     return render(request=request, template_name='main/index.html')
 
 
-def register(request):
-    if request.method == "POST":
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            username = form.cleaned_data.get('username')
-            if user is not None:
-                messages.success(request, f"New Account created: {username}")
-                login(request, user)
-            else:
-                return redirect("main:login")
-            return redirect("main:index")
-        else:
-            for msg in form.error_messages:
-                messages.error(request, f"{msg}: {form.error_messages[msg]}")
-
-            return render(request=request,
-                          template_name="main/register.html",
-                          context={"form": form})
-
-    form = UserCreationForm()
-    return render(request=request,
-                  template_name='main/register.html',
-                  context={'form': form}
-                  )
+def get_user_profile(request, username):
+    user = User.objects.get(username=username)
+    return render(request, 'main/profile.html', {"user": user})
 
 
-def login_request(request):
-    if request.method == "POST":
-        form = AuthenticationForm(request=request, data=request.POST)
-        if form.is_valid():
-            username = request.POST['username']
-            password = request.POST['password']
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                login(request, user)
-                return redirect("main:index")
-            else:
-                for msg in form.error_messages:
-                    messages.error(request, f"{msg}: {form.error_messages[msg]}")
-        else:
-            for msg in form.error_messages:
-                messages.error(request, f"{msg}: {form.error_messages[msg]}")
-
-        return render(request=request,
-                      template_name='main/login.html',
-                      context={'form': form}
-                      )
-    else:
-        form = AuthenticationForm()
-        return render(request=request,
-                      template_name='main/login.html',
-                      context={'form': form}
-                      )
+class WorldBorderCreateView(CreateView):
+    form_class = WorldBorderCreateForm
+    template_name = 'main/worldborder_create.html'
+    success_url = reverse_lazy('main:worldborder_list')
 
 
-def logout_request(request):
-    logout(request)
-    messages.info(request, "Logged out successfully!")
-    return redirect("main:index")
+class WorldBorderListView(ListView):
+    model = WorldBorder
+    context_object_name = 'world_borders'
 
 
-def profile(request):
-    return render(request=request, template_name='main/index.html')
+class WorldBorderDetailView(DetailView):
+    model = WorldBorder
+    context_object_name = 'world_border'
+    slug_field = 'worldborder_slug'
+    slug_url_kwarg = 'worldborder_slug'
+
+    def get_queryset(self):
+        self.world_border = get_object_or_404(WorldBorder, name=self.kwargs['worldborder_slug'])
+        return WorldBorder.objects.filter(name=self.world_border)

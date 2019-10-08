@@ -1,0 +1,21 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col s12 m6">
+            <div class="card teal darken-1">
+            <div class="card-content white-text">
+                <span class="card-title">Your activation failed</span>
+                <p>{{ activation_error.message }}</p>
+            </div>
+                <div class="card-action">
+                    <a href="{% url 'django_registration_register' %}" >Register again</a>
+                    <a href="{% url 'login' %}" >or login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
