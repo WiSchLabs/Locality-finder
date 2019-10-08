@@ -4,7 +4,7 @@ from django.views.generic import TemplateView
 from djgeojson.views import GeoJSONLayerView
 
 from main.models import WorldBorder
-from main.views import WorldBorderListView, WorldBorderCreateView, WorldBorderDetailView
+from main.views import WorldBorderListView, WorldBorderCreateView, WorldBorderDetailView, WorldBorderDetailJsonView
 from . import views
 
 app_name = "main"
@@ -16,6 +16,9 @@ urlpatterns = [
 
     path('borders/create/', WorldBorderCreateView.as_view(), name='worldborder_create'),
     path('borders/list/', WorldBorderListView.as_view(), name='worldborder_list'),
+
     path('borders/json/', GeoJSONLayerView.as_view(model=WorldBorder, geometry_field='mpoly'), name='worldborder_list_json'),
+    path('borders/json/<str:worldborder_slug>/', WorldBorderDetailJsonView.as_view(model=WorldBorder, geometry_field='mpoly'), name='worldborder_detail_json'),
+
     path('borders/<str:worldborder_slug>/', WorldBorderDetailView.as_view(), name='worldborder_detail'),
 ]

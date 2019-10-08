@@ -1,0 +1,3 @@
+{% load geojson_tags %}
+
+{{ world_border.mpoly|geojsonfeature|safe }}
