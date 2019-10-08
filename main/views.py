@@ -41,6 +41,6 @@ class WorldBorderDetailView(DetailView):
     slug_url_kwarg = 'worldborder_slug'
 
     def get_queryset(self):
-        self.world_border = get_object_or_404(WorldBorder, name=self.kwargs['worldborder_slug'])
-        return WorldBorder.objects.filter(name=self.world_border)
+        b = WorldBorder.objects.get(worldborder_slug=self.kwargs['worldborder_slug'])
+        return WorldBorder.objects.filter(name=b.name)
 
