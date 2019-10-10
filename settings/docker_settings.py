@@ -13,3 +13,9 @@ DATABASES = {
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+LEAFLET_CONFIG = {
+    # 'DEFAULT_CENTER': (52.525649, 13.480383),
+    # 'DEFAULT_ZOOM': 13,
+    'ATTRIBUTION_PREFIX': '',
+}

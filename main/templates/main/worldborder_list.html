@@ -5,11 +5,15 @@
 {% block content %}
     <h1>Borders</h1>
 
-    <div class="collection">
-        {% for border in world_borders %}
-            <a class="collection-item" href="{% url 'main:worldborder_detail' worldborder_slug=border.worldborder_slug %}" >{{ border }}</a>
-        {% endfor %}
-    </div>
-
     <br>
+
+    <ul class="collection">
+        {% for border in world_borders %}
+            <li class="collection-item">
+                <i class="material-icons small" style="color:#26a69a">place</i>
+                <a href="{% url 'main:worldborder_detail' worldborder_slug=border.worldborder_slug %}" style="color:#26a69a">{{ border }}</a>
+                <a class="secondary-content" href="{% url 'main:worldborder_update' worldborder_slug=border.worldborder_slug %}"><i class="material-icons right">edit</i></a>
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock %}
