@@ -39,6 +39,8 @@ class WorldBorderUpdateView(UpdateView):
 class WorldBorderListView(ListView):
     model = WorldBorder
     context_object_name = 'world_borders'
+    paginate_by = 15
+    ordering = 'name'
 
 
 class WorldBorderDetailJsonView(GeoJSONLayerView):

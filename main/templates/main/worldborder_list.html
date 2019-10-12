@@ -10,10 +10,37 @@
     <ul class="collection">
         {% for border in world_borders %}
             <li class="collection-item">
-                <i class="material-icons small" style="color:#26a69a">place</i>
-                <a href="{% url 'main:worldborder_detail' worldborder_slug=border.worldborder_slug %}" style="color:#26a69a">{{ border }}</a>
+                <a href="{% url 'main:worldborder_detail' worldborder_slug=border.worldborder_slug %}" class="teal-text text-darken-2">
+                    <i class="material-icons small" style="color:#26a69a">place</i>
+                    {{ border }}
+                </a>
                 <a class="secondary-content" href="{% url 'main:worldborder_update' worldborder_slug=border.worldborder_slug %}"><i class="material-icons right">edit</i></a>
             </li>
         {% endfor %}
     </ul>
+
+    {% if is_paginated %}
+    <ul class="pagination">
+        <li class="waves-effect"><a href="?page=1"><i class="material-icons">subdirectory_arrow_left</i></a></li>
+        {% if page_obj.has_previous %}
+            <li class="waves-effect"><a href="?page={{ page_obj.previous_page_number }}"><i class="material-icons">chevron_left</i></a></li>
+        {% else %}
+            <li class="disabled"><i class="material-icons">chevron_left</i></li>
+        {% endif %}
+        {% for i in paginator.page_range %}
+            {% if page_obj.number == i %}
+                <li class="active"><a href="">{{ i }}</a></li>
+            {% else %}
+                <li class="waves-effect"><a href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+            <li class="waves-effect"><a href="?page={{ page_obj.next_page_number }}"><i class="material-icons">chevron_right</i></a></li>
+        {% else %}
+            <li class="disabled"><i class="material-icons">chevron_right</i></li>
+        {% endif %}
+        <li class="waves-effect"><a href="?page={{ paginator.num_pages }}"><i class="material-icons">subdirectory_arrow_right</i></a></li>
+    </ul>
+    {% endif %}
+
 {% endblock %}
