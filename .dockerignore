@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+**/*.pyc
 
 # C extensions
 *.so
@@ -196,4 +197,5 @@ fabric.properties
 
 
 ## CUSTOM
-helm_chart/prod_values.yaml
+helm_chart
+kubernetes
