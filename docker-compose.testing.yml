@@ -16,7 +16,7 @@ services:
       dockerfile: Dockerfile.testing
     environment:
       - DJANGO_SETTINGS_MODULE=settings.docker_settings
-    command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; sleep infinity'
+    command: sleep infinity
     volumes:
       - .:/code
     networks:
