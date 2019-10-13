@@ -5,6 +5,7 @@
 # [Locality Finder](https://locality-finder-helm.sh4ke.rocks/)
 [![](https://images.microbadger.com/badges/version/wischlabs/locality_finder.svg)](https://microbadger.com/images/wischlabs/locality_finder "Get your own version badge on microbadger.com")
 [![](https://images.microbadger.com/badges/image/wischlabs/locality_finder.svg)](https://microbadger.com/images/wischlabs/locality_finder "Get your own image badge on microbadger.com")
+[![Build Status](https://travis-ci.org/WiSchLabs/Locality-finder.svg?branch=master)](https://travis-ci.org/WiSchLabs/Locality-finder)
 
 The locality finder is a Django Web-Application, which let's you find local events in your neighboorhood.
 
