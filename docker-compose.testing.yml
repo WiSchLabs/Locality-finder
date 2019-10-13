@@ -8,8 +8,6 @@ services:
       - POSTGRES_USER=docker
       - POSTGRES_PASS=docker
       - POSTGRES_DBNAME=docker
-    volumes:
-      - postgres-data:/var/lib/postgresql/11/main
     networks:
       - db_network
   web:
@@ -18,11 +16,9 @@ services:
       dockerfile: Dockerfile.testing
     environment:
       - DJANGO_SETTINGS_MODULE=settings.docker_settings
-    command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; python manage.py runserver 0.0.0.0:8080'
+    command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; sleep infinity'
     volumes:
       - .:/code
-      - static_volume:/code/static
-      - media_volume:/code/media
     networks:
       - db_network
       - nginx_network
@@ -34,8 +30,6 @@ services:
       - 8080:80
     volumes:
       - ./config/nginx/conf.d/compose_local.conf:/etc/nginx/conf.d/default.conf
-      - static_volume:/code/static
-      - media_volume:/code/media
     depends_on:
       - web
     networks:
@@ -46,8 +40,3 @@ networks:
     driver: bridge
   db_network:
     driver: bridge
-
-volumes:
-  postgres-data:
-  static_volume:
-  media_volume:
