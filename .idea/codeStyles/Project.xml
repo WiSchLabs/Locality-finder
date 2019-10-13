@@ -1,0 +1,10 @@
+<component name="ProjectCodeStyleConfiguration">
+  <code_scheme name="Project" version="173">
+    <codeStyleSettings language="Python">
+      <option name="KEEP_BLANK_LINES_IN_DECLARATIONS" value="2" />
+      <option name="KEEP_BLANK_LINES_IN_CODE" value="2" />
+      <option name="ALIGN_MULTILINE_PARAMETERS_IN_CALLS" value="false" />
+      <option name="SPACE_AROUND_EQUALITY_OPERATORS" value="false" />
+    </codeStyleSettings>
+  </code_scheme>
+</component>
