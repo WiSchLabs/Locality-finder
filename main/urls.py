@@ -4,8 +4,9 @@ from django.views.generic import TemplateView
 from djgeojson.views import GeoJSONLayerView
 
 from main.models import WorldBorder
-from main.views import WorldBorderListView, WorldBorderCreateView, WorldBorderDetailView, WorldBorderDetailJsonView, \
-    WorldBorderUpdateView
+from main.views import (WorldBorderCreateView, WorldBorderDetailJsonView, WorldBorderDetailView, WorldBorderListView,
+                        WorldBorderUpdateView)
+
 from . import views
 
 app_name = "main"

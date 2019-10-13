@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, DetailView, UpdateView
+from django.views.generic import CreateView, DetailView, ListView, UpdateView
 from djgeojson.views import GeoJSONLayerView
 
 from main.forms import WorldBorderCreateForm
@@ -62,4 +62,3 @@ class WorldBorderDetailView(DetailView):
     def get_queryset(self):
         b = WorldBorder.objects.get(worldborder_slug=self.kwargs['worldborder_slug'])
         return WorldBorder.objects.filter(name=b.name)
-
