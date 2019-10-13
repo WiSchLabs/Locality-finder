@@ -3,4 +3,4 @@ services:
 
 script:
     - docker-compose -f docker-compose.testing.yml up -d
-    - docker-compose -f docker-compose.testing.yml exec web /bin/bash -c 'while !</dev/tcp/db/5432; do sleep 1; done;'; coverage run manage.py test
+    - docker-compose -f docker-compose.testing.yml exec web bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; coverage run manage.py test'
