@@ -13,6 +13,3 @@ WORKDIR /code
 
 COPY requirements.txt /code/
 RUN pip install -r requirements.txt
-
-COPY docker_requirements.txt /code/
-RUN pip install -r docker_requirements.txt

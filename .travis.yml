@@ -1,8 +1,6 @@
-language: python
-
 services:
   - docker
 
 script:
-    - docker-compose up -d
-    - docker-compose exec web coverage run manage.py test
+    - docker-compose -f docker-compose.testing.yml up -d
+    - docker-compose -f docker-compose.testing.yml exec web coverage run manage.py test
