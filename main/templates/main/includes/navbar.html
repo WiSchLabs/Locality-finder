@@ -1,0 +1,26 @@
+{% load cache %}
+{% cache 500 navbar request.user.username %}
+<nav>
+    <div class="nav-wrapper teal">
+        <a href="{% url 'main:index' %}" class="brand-logo"><i class="material-icons" style="margin-left:15px">home</i></a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+        {% if user.is_authenticated %}
+            <li>
+                <ul id="map-dropdown" class="dropdown-content">
+                    <li><a href="{% url 'main:worldborder_list' %}"><i class="large material-icons">view_list</i>List</a></a></li>
+                    <li><a href="{% url 'main:worldborder_create' %}"><i class="large material-icons">add_circle</i>Add</a></li>
+                    <li><a href="{% url 'main:geo' %}" ><i class="large material-icons">landscape</i>Show all</a></li>
+                </ul>
+                <a class="btn dropdown-trigger" href="#!" data-target="map-dropdown">World Borders<i class="material-icons right">arrow_drop_down</i></a>
+            </li>
+            <li><a href="{% url 'profile' username=user.username %}" >{{user.username|title}}</a></li>
+            <li><a href="{% url 'logout' %}" >logout</a></li>
+        {% else %}
+            <li><a href="{% url 'login' %}" >login</a></li>
+            <li><a href="{% url 'django_registration_register' %}" >register</a></li>
+        {% endif %}
+            <li><a href="#" data-target="slide-out" class="sidenav-trigger show-on-large"><i class="material-icons">menu</i></a></li>
+        </ul>
+    </div>
+</nav>
+{% endcache %}

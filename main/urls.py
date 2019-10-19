@@ -1,5 +1,6 @@
 from django.conf.urls import url
 from django.urls import path
+from django.views.decorators.cache import cache_page
 from django.views.generic import TemplateView
 from djgeojson.views import GeoJSONLayerView
 
@@ -21,8 +22,8 @@ urlpatterns = [
 
     path('borders/update/<str:worldborder_slug>/', WorldBorderUpdateView.as_view(), name='worldborder_update'),
 
-    path('borders/json/', GeoJSONLayerView.as_view(model=WorldBorder, geometry_field='mpoly'), name='worldborder_list_json'),
-    path('borders/json/<str:worldborder_slug>/', WorldBorderDetailJsonView.as_view(model=WorldBorder, geometry_field='mpoly'), name='worldborder_detail_json'),
+    path('borders/json/', cache_page(60 * 15)(GeoJSONLayerView.as_view(model=WorldBorder, geometry_field='mpoly')), name='worldborder_list_json'),
+    path('borders/json/<str:worldborder_slug>/', cache_page(60 * 15)(WorldBorderDetailJsonView.as_view(model=WorldBorder, geometry_field='mpoly')), name='worldborder_detail_json'),
 
     path('borders/<str:worldborder_slug>/', WorldBorderDetailView.as_view(), name='worldborder_detail'),
 ]

@@ -19,3 +19,14 @@ LEAFLET_CONFIG = {
     # 'DEFAULT_ZOOM': 13,
     'ATTRIBUTION_PREFIX': '',
 }
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': 'memcached:11211',
+        'TIMEOUT': 300,
+        'OPTIONS': {
+            'server_max_value_length': 1024 * 1024 * 4,
+        }
+    }
+}

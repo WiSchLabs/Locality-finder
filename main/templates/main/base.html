@@ -22,22 +22,8 @@
     <script type="text/javascript" src="{% static 'main/js/materialize.js' %}"></script>
     <script type="text/javascript" src="{% static 'main/js/main.js' %}"></script>
 
-    <nav>
-        <div class="nav-wrapper teal">
-            <a href="{% url 'main:index' %}" class="brand-logo"><i class="material-icons" style="margin-left:15px">home</i></a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-                {% include 'main/includes/navbaritems.html' %}
-            </ul>
-        </div>
-    </nav>
-
-    <ul id="slide-out" class="sidenav teal darken-3">
-        <li><a class="waves-effect" href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
-        <li><a class="waves-effect" href="#!">Second Link</a></li>
-        <li><div class="divider"></div></li>
-        <li><a class="subheader">Subheader</a></li>
-        <li><a class="waves-effect" href="#!">Third Link</a></li>
-    </ul>
+    {% include 'main/includes/navbar.html' %}
+    {% include 'main/includes/sidebar.html' %}
 
     {% include 'main/includes/messages.html' %}
 

@@ -1,0 +1,10 @@
+{% load cache %}
+{% cache 500 sidebar request.user.username %}
+<ul id="slide-out" class="sidenav teal darken-3">
+    <li><a class="waves-effect" href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
+    <li><a class="waves-effect" href="#!">Second Link</a></li>
+    <li><div class="divider"></div></li>
+    <li><a class="subheader">Subheader</a></li>
+    <li><a class="waves-effect" href="#!">Third Link</a></li>
+</ul>
+{% endcache %}

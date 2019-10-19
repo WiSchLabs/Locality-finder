@@ -25,6 +25,7 @@ services:
     networks:
       - db_network
       - nginx_network
+      - cache_network
     depends_on:
       - db
   nginx:
@@ -39,11 +40,17 @@ services:
       - web
     networks:
       - nginx_network
+  memcached:
+    image: memcached:alpine
+    networks:
+      - cache_network
 
 networks:
   nginx_network:
     driver: bridge
   db_network:
+    driver: bridge
+  cache_network:
     driver: bridge
 
 volumes:
