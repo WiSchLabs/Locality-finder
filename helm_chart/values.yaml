@@ -41,6 +41,18 @@ postgis:
     user: docker
     # password: docker
 
+memcached:
+  replicaCount: 1
+
+  image:
+    repository: memcached
+    tag: alpine
+    pullPolicy: IfNotPresent
+
+  service:
+    type: ClusterIP
+    port: 11211
+
 ingress:
   enabled: true
   annotations:

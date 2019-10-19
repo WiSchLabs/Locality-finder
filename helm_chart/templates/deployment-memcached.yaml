@@ -1,0 +1,32 @@
+{{- $fullName := include "helm_chart.fullname" . -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $fullName }}-memcached
+  labels:
+{{ include "helm_chart.labels" . | indent 4 }}
+spec:
+  replicas: {{ .Values.memcached.replicaCount }}
+  selector:
+    matchLabels:
+      pod: memcached
+      app.kubernetes.io/name: {{ include "helm_chart.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        pod: memcached
+        app.kubernetes.io/name: {{ include "helm_chart.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}-memcached
+          image: {{ .Values.memcached.image.repository }}:{{ .Values.memcached.image.tag }}
+          ports:
+            - containerPort: 11211
+          readinessProbe:
+            tcpSocket:
+              port: 11211
+          livenessProbe:
+            tcpSocket:
+              port: 11211

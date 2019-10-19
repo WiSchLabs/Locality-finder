@@ -12,6 +12,9 @@ data:
     from socket import gethostname, gethostbyname
     from ..docker_settings import *
 
+    DEBUG = False
+
+    ALLOWED_HOSTS = [gethostname(), gethostbyname(gethostname()), {{- range $i, $host := .Values.ingress.hosts }}{{if $i}},{{end}}"{{ $host.host }}"{{- end }}, "localhost", "127.0.0.1"]
 
     SECRET_KEY = os.environ.get('APP_SECRET_KEY', 'unsafe-secret-key')
 
@@ -26,9 +29,16 @@ data:
         }
     }
 
-    ALLOWED_HOSTS = [gethostname(), gethostbyname(gethostname()), {{- range $i, $host := .Values.ingress.hosts }}{{if $i}},{{end}}"{{ $host.host }}"{{- end }}, "localhost", "127.0.0.1"]
-
-    DEBUG = False
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+            'LOCATION': '{{ $fullName }}-memcached-service:11211',
+            'TIMEOUT': 300,
+            'OPTIONS': {
+                'server_max_value_length': 1024 * 1024 * 4,
+            }
+        }
+    }
 
     # EMail settings (mailjet)
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  # This is already the default
