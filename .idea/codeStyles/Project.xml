@@ -1,5 +1,8 @@
 <component name="ProjectCodeStyleConfiguration">
   <code_scheme name="Project" version="173">
+    <MarkdownNavigatorCodeStyleSettings>
+      <option name="RIGHT_MARGIN" value="72" />
+    </MarkdownNavigatorCodeStyleSettings>
     <codeStyleSettings language="Python">
       <option name="KEEP_BLANK_LINES_IN_DECLARATIONS" value="2" />
       <option name="KEEP_BLANK_LINES_IN_CODE" value="2" />
