@@ -11,10 +11,6 @@ from main.forms import WorldBorderCreateForm
 from main.models import WorldBorder
 
 
-def index(request):
-    return render(request=request, template_name='main/index.html')
-
-
 @login_required
 def get_user_profile(request, username):
     user = User.objects.get(username=username)
