@@ -20,7 +20,6 @@ services:
       - DJANGO_SETTINGS_MODULE=settings.docker_settings
     command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; gunicorn locality_finder.wsgi --bind :8080'
     volumes:
-      - .:/code
       - static_volume:/code/static
       - media_volume:/code/media
     networks:
