@@ -28,6 +28,7 @@ services:
       - cache_network
     depends_on:
       - db
+      - memcached
   nginx:
     image: nginx:latest
     ports:
