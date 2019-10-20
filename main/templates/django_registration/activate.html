@@ -3,17 +3,17 @@
 {% load static %}
 
 {% block content %}
-    <h1>Registration</h1>
+<h1>Registration</h1>
 
-    <form method="POST">
-        {% csrf_token %}
-        {{form.as_p}}
+<form method="POST">
+  {% csrf_token %}
+  {{form.as_p}}
 
-        <button class="btn" type="submit">register</button>
-    </form>
+  <button class="btn" type="submit">register</button>
+</form>
 
-    <br>
-    <br>
+<br>
+<br>
 
-    If you are already registered, login <a href="{% url 'login' %}">here</a>
+If you are already registered, login <a href="{% url 'login' %}">here</a>
 {% endblock %}

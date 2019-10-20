@@ -5,31 +5,31 @@
 
 {% block custom_includes %}
 
-    {% leaflet_js %}
-    {% leaflet_css %}
-    <link rel="stylesheet" href="{% static 'main/css/leaflet.css' %}">
-    <script type="text/javascript" src="{% static 'main/js/jquery-3.4.1.min.js' %}"></script>
+{% leaflet_js %}
+{% leaflet_css %}
+<link rel="stylesheet" href="{% static 'main/css/leaflet.css' %}">
+<script type="text/javascript" src="{% static 'main/js/jquery-3.4.1.min.js' %}"></script>
 
 {% endblock %}
 
 {% block content %}
-    <h1>World Border</h1>
+<h1>World Border</h1>
 
-    <div class="row">
-        {% leaflet_map "main" callback="main_map_init" %}
-    </div>
+<div class="row">
+  {% leaflet_map "main" callback="main_map_init" %}
+</div>
 
-    <br>
+<br>
 
-    <script type="text/javascript">
-        var layer = L.geoJson();
+<script type="text/javascript">
+    var layer = L.geoJson();
 
-        function main_map_init (map, options) {
-            map.addLayer(layer);
-        }
+    function main_map_init (map, options) {
+        map.addLayer(layer);
+    }
 
-        $.getJSON("{% url 'main:worldborder_detail_json' worldborder_slug=world_border.worldborder_slug %}", function (data) {
-            layer.addData(data);
-        });
-    </script>
+    $.getJSON("{% url 'main:worldborder_detail_json' worldborder_slug=world_border.worldborder_slug %}", function (data) {
+        layer.addData(data);
+    });
+</script>
 {% endblock %}

@@ -5,24 +5,25 @@
 
 {% block custom_includes %}
 
-    {% leaflet_js plugins="forms" %}
-    {% leaflet_css plugins="forms" %}
+{% leaflet_js plugins="forms" %}
+{% leaflet_css plugins="forms" %}
 
 {% endblock %}
 
 {% block content %}
-    <h1>Create a new Border</h1>
+<h1>Create a new Border</h1>
 
-    <form method="POST">
-        {{ form }}
+<form method="POST">
+  {{ form }}
 
-        {% csrf_token %}
+  {% csrf_token %}
 
-        <br>
+  <br>
 
-        <button class="btn center-align" type="submit" id="create_border_submit_btn">save<i class="material-icons right">send</i></button>
-    </form>
+  <button class="btn center-align" type="submit" id="create_border_submit_btn">save<i
+    class="material-icons right">send</i></button>
+</form>
 
-    <br>
+<br>
 
 {% endblock %}
