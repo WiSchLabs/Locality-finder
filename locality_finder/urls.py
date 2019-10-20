@@ -18,15 +18,18 @@ from django.contrib import admin
 from django.urls import include, path
 from django.views.generic import TemplateView
 
-from main import views
+import main
 
 urlpatterns = [
     path('', include('main.urls')),
+
     path('admin/', admin.site.urls),
 
     url(r'^accounts/', include('django_registration.backends.activation.urls')),
     url(r'^accounts/', include('django.contrib.auth.urls')),
 
     url(r'^accounts/logged-out/', TemplateView.as_view(template_name='main/logged_out.html'), name='logged_out'),
-    url(r'^accounts/profile/(?P<username>[a-zA-Z0-9]+)/$', views.get_user_profile, name='profile'),
+    url(r'^accounts/profile/(?P<username>[a-zA-Z0-9]+)/$', main.views.get_user_profile, name='profile'),
+
+    path('q_apis/', include('query_apis.urls')),
 ]

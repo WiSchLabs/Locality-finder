@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'main',
     'leaflet',
     'djgeojson',
+    'query_apis',
+    'query_apis.api_football',
 ]
 
 MIDDLEWARE = [
