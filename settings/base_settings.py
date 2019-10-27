@@ -141,3 +141,21 @@ DEFAULT_FROM_EMAIL = "noreply@sh4ke.rocks"
 # Redictions
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/accounts/logged-out/'
+
+
+######
+# APIs
+######
+
+FOOTBALL_API = {
+    'API_URL': 'http://www.api-football.com/demo/api/v2/',  # Demo version of the API without restrictions
+    'API_KEY': os.environ.get('FOOTBALL_API_KEY', default=''),
+}
+
+# Use Nominatim as opensource geocoding api!
+OSM_GEOCODING_API = {
+    'API_URL': 'https://nominatim.openstreetmap.org/search/',
+}
+# Or use third-party alternatives listed under:
+# https://wiki.openstreetmap.org/wiki/Nominatim#Alternatives_.2F_Third-party_providers
+
